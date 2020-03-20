@@ -10,6 +10,7 @@ import { addTodo } from '../actions';
 export default function TodoForm() {
     const [text, setText] = useState('');
     const dispatch = useDispatch();
+    const todos = useSelector(state => state.todos)
 
 
     function handleAddAction() {
@@ -18,7 +19,7 @@ export default function TodoForm() {
                 'Campo vazio',
                 'Este campo não pode estar vazio!',
                 [
-                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                    { text: 'OK', onPress: () => {} },
                 ],
                 // Permite fechar o alerta pressionando fora do dialogo
                 // { cancelable: true }
@@ -26,9 +27,10 @@ export default function TodoForm() {
             );
             return;
         }
-        
+
         dispatch(addTodo(text));
         setText('');
+        console.log(todos)
         // console.log('Funciona, goroio ')
     }
 

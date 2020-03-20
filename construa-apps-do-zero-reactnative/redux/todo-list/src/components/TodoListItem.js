@@ -1,17 +1,44 @@
-import React from 'react';
-import { TouchableOpacity, Text, View } from 'react-native';
-import { Divider, List } from 'react-native-paper';
+import React, { useState } from 'react';
+import { TouchableOpacity, View, StyleSheet } from 'react-native';
+import { Divider, Text, Button } from 'react-native-paper';
 
-// import { Container } from './styles';
 
-export default function TodoListItem({ todo }) {
+export default function TodoListItem({ todo, onPressTodo, onPressRemove }) {
 
     return (
-        <View>
-            <List.Item
-                title={todo.text}
-            />
+        <TouchableOpacity onPress={onPressTodo}>
+            <View style={styles.item}>
+                <Text
+                    style={[
+                        todo.done ? styles.lineThrough : null
+                    ]}
+                >
+                    {todo.text}
+                </Text>
+                <Button style={styles.itemButton} compact={true} icon="delete" mode="contained" onPress={onPressRemove}>
+                </Button>
+            </View>
             <Divider />
-        </View>
+        </TouchableOpacity>
     );
 }
+
+const styles = StyleSheet.create({
+    item: {
+        height: 60,
+        paddingHorizontal: 10,
+        justifyContent: "space-between",
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    itemText: {
+        fontSize: 20,
+        flex: 7
+    },
+    itemButton: {
+        alignSelf: 'center',
+    },
+    lineThrough: {
+        textDecorationLine: 'line-through',
+    }
+})
